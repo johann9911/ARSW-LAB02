@@ -30,14 +30,27 @@ public class MainCanodromo {
                         //bloquear la interfaz gráfica.
                         ((JButton) e.getSource()).setEnabled(false);
                         new Thread() {
+                        	
                             public void run() {
+                
                                 for (int i = 0; i < can.getNumCarriles(); i++) {
                                     //crea los hilos 'galgos'
                                     galgos[i] = new Galgo(can.getCarril(i), "" + i, reg);
                                     //inicia los hilos
                                     galgos[i].start();
-
+                                    
                                 }
+                                
+                               for (int i = 0; i < can.getNumCarriles(); i++) {
+                            	   try {
+									galgos[i].join();
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+                            	   
+                            	   
+                               } 
                                
 				can.winnerDialog(reg.getGanador(),reg.getUltimaPosicionAlcanzada() - 1); 
                                 System.out.println("El ganador fue:" + reg.getGanador());
@@ -47,21 +60,45 @@ public class MainCanodromo {
                     }
                 }
         );
-
+      //Acción del botón stop
         can.setStopAction(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("Carrera pausada!");
+                        new Thread() {
+                        	
+                            public void run() {
+                
+                                for (int o = 0; o < can.getNumCarriles(); o++) {
+                                    //inicia los hilos
+                                    galgos[o].pause();
+                                    
+                                }
+                            }
+                        }.start();
                     }
+                    
+                    
                 }
         );
-
+      //Acción del botón continuar
         can.setContinueAction(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("Carrera reanudada!");
+                        new Thread() {
+                        	
+                            public void run() {
+                
+                                for (int l = 0; l < can.getNumCarriles(); l++) {
+                                    //inicia los hilos
+                                    galgos[l].reanudar();
+                                    
+                                }
+                            }
+                        }.start();
                     }
                 }
         );

@@ -13,8 +13,8 @@ public class Main {
 		//PrimeFinderThread pft=new PrimeFinderThread(0, 30000000);
 		Scanner scanner = new Scanner(System.in);
 		String entrada;
-		PrimeFinderThread pft1=new PrimeFinderThread(0,10000000);
-		PrimeFinderThread pft2=new PrimeFinderThread(10000000, 20000000);
+		PrimeFinderThread pft1=new PrimeFinderThread(0,9999999);
+		PrimeFinderThread pft2=new PrimeFinderThread(10000000, 19999999);
 		PrimeFinderThread pft3=new PrimeFinderThread(20000000, 30000000);
 		
 		//pft.start();
@@ -23,6 +23,7 @@ public class Main {
 		pft3.start();
 		try {
 			Thread.sleep(5000);
+			
 			pft1.pausar();
 			pft2.pausar();
 			pft3.pausar();
