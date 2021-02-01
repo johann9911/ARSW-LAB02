@@ -13,13 +13,14 @@ public class Galgo extends Thread {
 	private int paso;
 	private Carril carril;
 	RegistroLlegada regl;
-	boolean pausado;
+	private boolean pausado;
 
 	public Galgo(Carril carril, String name, RegistroLlegada reg) {
 		super(name);
 		this.carril = carril;
 		paso = 0;
 		this.regl=reg;
+		pausado=false;
 	}
 
 	public void  corra() throws InterruptedException {
@@ -29,9 +30,12 @@ public class Galgo extends Thread {
 			carril.displayPasos(paso);
 			synchronized (this) {
 				while(pausado) {
-					wait();
+					this.wait();
+					
 				}
+				
 			}
+			
 			if (paso == carril.size()) {
 				carril.finish();
 				int ubicacion;
@@ -56,20 +60,21 @@ public class Galgo extends Thread {
 	public void run() {
 		
 		try {
-			corra();
+			corra();	
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
 	}
 	
-	synchronized void pause() {
+	public synchronized void pause() {
 		pausado=true;
-		notify();
+		
+		this.notifyAll();
 	}
 
-	synchronized void reanudar() {
+	public synchronized void reanudar() {
 		pausado=false;
-		notify();
+		this.notifyAll();
 	}
 }

@@ -44,6 +44,7 @@ public class MainCanodromo {
                                for (int i = 0; i < can.getNumCarriles(); i++) {
                             	   try {
 									galgos[i].join();
+									
 								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -69,12 +70,13 @@ public class MainCanodromo {
                         new Thread() {
                         	
                             public void run() {
-                
+                            	
+//                            	galgos[0].pause();
                                 for (int o = 0; o < can.getNumCarriles(); o++) {
                                     //inicia los hilos
                                     galgos[o].pause();
-                                    
                                 }
+                                
                             }
                         }.start();
                     }
@@ -91,12 +93,12 @@ public class MainCanodromo {
                         new Thread() {
                         	
                             public void run() {
-                
+                            	
                                 for (int l = 0; l < can.getNumCarriles(); l++) {
                                     //inicia los hilos
                                     galgos[l].reanudar();
-                                    
                                 }
+                                
                             }
                         }.start();
                     }
