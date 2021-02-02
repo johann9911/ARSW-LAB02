@@ -1,4 +1,4 @@
-
+.
 ### Escuela Colombiana de Ingeniería
 
 ### Arquitecturas de Software – ARSW
@@ -79,7 +79,8 @@ Parte III
     
     **Regiones Criticas**
     
-    La región critica se encuentra en la clase _galgo_ con la variable _regl_ donde se registra la llegada y se cambia la ubicación
+    La región critica se encuentra en la clase _galgo_ con la variable _regl_ ya que es una variable que comparten todos 
+los hilos y es donde se registra la llegada y se cambia la ubicación, por lo tanto es necesario controlar ese acceso
     
     ![image](https://user-images.githubusercontent.com/59893804/106675547-4a80ac80-6583-11eb-9beb-17486a71ecdb.png)
     
@@ -88,7 +89,8 @@ Parte III
     regiones críticas sólo acceda un hilo a la vez. Verifique los
     resultados.
     
-    Para corregirlo usamos _synchronized_ de la variable antes mencionada en la región critica 
+    Para corregirlo usamos _synchronized_ de la variable antes mencionada en la región critica, de este modo se bloqueara
+el acceso a la variable para que solo un hilo sea capaz de acceder y modificar la información de la variable
     
     ![image](https://user-images.githubusercontent.com/59893804/106675850-d7c40100-6583-11eb-9756-2125fc3dbe33.png)
     
@@ -103,14 +105,18 @@ Parte III
     deberían despertarse y continuar con la carrera.
     
     **STOP**
-    
+    Para detener los hilos usamos la función wait que duerme hilo, pero esta debe ser notificada para que 
+siga su proceso por medio de la funcion notifyAll
     Todos los hilos se detienen 
     
     ![image](https://user-images.githubusercontent.com/59893804/106676476-fbd41200-6584-11eb-9c8c-1f8297b22ca8.png)
 
     
     **CONTINUE**
-    
+
+    Para realizar esta funcionalidad, nos ayudamos con el metodo notifyAll que despertaba todos los hilos que
+estuviera en un estado wait, esto incluye al join, sin embargo, la implementación del join permite que se siga
+quedando en espera hasta que ese hilo deje de vivir.    
     Todos los hilos se reanudan y si no hay otro _stop_ finaliza la carrera 
     
     ![image](https://user-images.githubusercontent.com/59893804/106676562-2920c000-6585-11eb-9009-0ea9d1a16ef1.png)
